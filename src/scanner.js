@@ -3,9 +3,10 @@ const semver = require('semver');
 
 async function scanDependencies(path) {
   try {
-    const pkg = require(`${path}/package.json`);
-    const outdated = JSON.parse(execSync(`cd ${path} && npm outdated --json`).toString());
-    const auditRaw = execSync(`cd ${path} && npm audit --json`).toString();
+    const pkg = require(path);
+    const dir = path.replace('/package.json', '');
+    const outdated = JSON.parse(execSync(`cd ${dir} && npm outdated --json`).toString());
+    const auditRaw = execSync(`cd ${dir} && npm audit --json`).toString();
     const audit = auditRaw ? JSON.parse(auditRaw) : { advisories: {} };
 
     const dependencies = [];
