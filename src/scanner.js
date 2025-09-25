@@ -22,7 +22,7 @@ async function scanDependencies(path) {
     }
     return dependencies;
   } catch (error) {
-    console.error(`Erreur lors du scan : ${error.message}`);
+    console.error(`Error during scan: ${error.message}`);
     return [];
   }
 }
@@ -39,9 +39,9 @@ function getRiskLevel(name, audit) {
 
 function getRecommendation(info) {
   if (info.wanted !== info.latest) {
-    return `Mettre à jour vers ${info.wanted} (compatibilité) ou ${info.latest} (dernière version).`;
+    return `Update to ${info.wanted} (compatibility) or ${info.latest} (latest version).`;
   }
-  return 'Aucune action requise.';
+  return 'No action required.';
 }
 
 module.exports = { scanDependencies };

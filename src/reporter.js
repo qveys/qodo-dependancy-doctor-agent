@@ -2,20 +2,20 @@ function generateReport(dependencies, prUrl = null) {
     const critical = dependencies.filter(d => d.risk === 'critical' || d.risk === 'high').length;
     const report = {
       content: `
-  # Rapport Dependency Doctor
+  # Dependency Doctor Report
   
-  ## 📦 Dépendances à mettre à jour (${dependencies.length} issues)
-  | Package   | Version Actuelle | Version Cible | Risque   | Recommandation          |
+  ## 📦 Dependencies to update (${dependencies.length} issues)
+  | Package   | Current Version | Target Version | Risk   | Recommendation          |
   |-----------|------------------|---------------|----------|-------------------------|
   ${dependencies.map(d => `| ${d.name} | ${d.current} | ${d.wanted} | ${d.risk} | ${d.recommendation} |`).join('\n')}
   
-  ## 📊 Résumé
-  - **Problèmes critiques** : ${critical}
-  - **Pull Request** : ${prUrl ? `[Lien](${prUrl})` : 'Aucune'}
+  ## 📊 Summary
+  - **Critical issues** : ${critical}
+  - **Pull Request** : ${prUrl ? `[Link](${prUrl})` : 'None'}
   
-  ## 🔧 Prochaines étapes
-  - Revoyez les dépendances à risque **critical/high**.
-  - Exécutez \`npm test\` après toute mise à jour.
+  ## 🔧 Next Steps
+  - Review dependencies with **critical/high** risk.
+  - Run \`npm test\` after any updates.
   `,
       summary: {
         total_issues: dependencies.length,
