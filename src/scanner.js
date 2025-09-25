@@ -1,5 +1,4 @@
 const { execSync } = require('child_process');
-const semver = require('semver');
 
 async function scanDependencies(path) {
   try {
@@ -11,9 +10,13 @@ async function scanDependencies(path) {
       const outdatedOutput = execSync(`cd ${dir} && npm outdated --json`, { stdio: 'pipe' }).toString();
       outdated = JSON.parse(outdatedOutput);
     } catch (error) {
-      // If npm outdated fails, try to parse the stderr output which might contain the JSON
-      if (error.stdout) {
+      // npm outdated returns exit code 1 when packages are outdated, but the output is still valid
+      // The output is in error.stdout when using stdio: 'pipe'
+      if (error.stdout && error.stdout.toString().trim()) {
         outdated = JSON.parse(error.stdout.toString());
+      } else {
+        // If no stdout or empty stdout, use empty object
+        outdated = {};
       }
     }
     

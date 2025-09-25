@@ -38,4 +38,8 @@ async function main(args) {
   return report;
 }
 
+// Export the main function for Qodo agent
 module.exports = { main };
+
+// Also export as default for compatibility
+module.exports.default = main;
