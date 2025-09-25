@@ -1,9 +1,11 @@
 {
+  "name": "dependency-doctor-agent",
+  "version": "1.0.0",
+  "description": "Scans, evaluates and automatically fixes outdated or vulnerable dependencies in your Node.js projects.",
+  "main": "src/index.js",
   "dependencies": {
     "@actions/core": "^1.11.1",
     "@actions/github": "^6.0.1",
-    "@octokit/rest": "^22.0.0",
-    "axios": "^1.12.2",
-    "semver": "^7.7.2"
+    "@octokit/rest": "^22.0.0"
   }
 }
