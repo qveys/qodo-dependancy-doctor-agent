@@ -1,0 +1,25 @@
+{
+  "name": "test-dependency-doctor",
+  "version": "1.0.0",
+  "description": "A test project for Dependency Doctor with outdated/vulnerable dependencies",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "lodash": "4.17.15",
+    "axios": "0.21.1",
+    "express": "4.16.4",
+    "moment": "2.24.0",
+    "jquery": "3.4.1",
+    "debug": "2.6.9",
+    "async": "2.6.3",
+    "request": "2.88.2"
+  },
+  "devDependencies": {
+    "mocha": "6.2.3",
+    "chai": "4.2.0"
+  },
+  "author": "Quentin Veys",
+  "license": "MIT"
+}

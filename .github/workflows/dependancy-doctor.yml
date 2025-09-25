@@ -1,0 +1,18 @@
+name: Dependency Doctor
+on:
+  schedule:
+    - cron: '0 0 * * 0'
+  workflow_dispatch:
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+      - run: npm install -g @qodo/command
+      - run: |
+          qodo --agent-file=https://raw.githubusercontent.com/qveys/qodo-dependancy-doctor-agent/main/agent.toml \
+               --path . \
+               --auto-fix true \
+               --github-token=${{ secrets.GITHUB_TOKEN }}

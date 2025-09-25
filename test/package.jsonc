@@ -1,0 +1,25 @@
+{
+  "name": "test-dependency-doctor",
+  "version": "1.0.0",
+  "description": "A test project for Dependency Doctor with outdated/vulnerable dependencies",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "lodash": "4.17.15",       // Vulnerable (CVE-2019-10744) -->
+    "axios": "0.21.1",         // Outdated (latest stable version: 1.x) -->
+    "express": "4.16.4",       // Outdated (latest stable version: 4.18.x) -->
+    "moment": "2.24.0",        // Outdated (latest version: 2.29.x) -->
+    "jquery": "3.4.1",         // Outdated (latest version: 3.7.x) -->
+    "debug": "2.6.9",          // Vulnerable (CVE-2017-16042) -->
+    "async": "2.6.3",          // Outdated (latest version: 3.x) -->
+    "request": "2.88.2"        // Deprecated and vulnerable (CVE-2023-28155) -->
+  },
+  "devDependencies": {
+    "mocha": "6.2.3",          // Outdated (latest version: 10.x) -->
+    "chai": "4.2.0"            // Outdated (latest version: 4.3.x) -->
+  },
+  "author": "Quentin Veys",
+  "license": "MIT"
+}
