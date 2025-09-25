@@ -3,11 +3,29 @@ const semver = require('semver');
 
 async function scanDependencies(path) {
   try {
-    const pkg = require(path);
     const dir = path.replace('/package.json', '');
-    const outdated = JSON.parse(execSync(`cd ${dir} && npm outdated --json`).toString());
-    const auditRaw = execSync(`cd ${dir} && npm audit --json`).toString();
-    const audit = auditRaw ? JSON.parse(auditRaw) : { advisories: {} };
+    
+    // npm outdated returns exit code 1 when there are outdated packages, but we still want the output
+    let outdated = {};
+    try {
+      const outdatedOutput = execSync(`cd ${dir} && npm outdated --json`, { stdio: 'pipe' }).toString();
+      outdated = JSON.parse(outdatedOutput);
+    } catch (error) {
+      // If npm outdated fails, try to parse the stderr output which might contain the JSON
+      if (error.stdout) {
+        outdated = JSON.parse(error.stdout.toString());
+      }
+    }
+    
+    // npm audit requires a lockfile, so make it optional
+    let audit = { advisories: {} };
+    try {
+      const auditRaw = execSync(`cd ${dir} && npm audit --json`, { stdio: 'pipe' }).toString();
+      audit = auditRaw ? JSON.parse(auditRaw) : { advisories: {} };
+    } catch (error) {
+      // If audit fails (no lockfile), just use empty advisories
+      audit = { advisories: {} };
+    }
 
     const dependencies = [];
     for (const [name, info] of Object.entries(outdated)) {
